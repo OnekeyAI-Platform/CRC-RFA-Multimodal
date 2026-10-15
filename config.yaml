@@ -1,0 +1,56 @@
+radio_dir: Z:\20241225-HuangHaoZhe\Radiology
+path_dir: Z:\20241225-HuangHaoZhe\Pathology
+ml_models: 
+  - LR
+  - SVM
+  - RandomForest
+  - ExtraTrees
+  - XGBoost
+#   - LightGBM
+#   - MLP
+# use_youden: False
+extractor_settings: custom_settings/exampleCT.yaml
+label_file: group.csv
+# label_file: split_info/label-RND-4.csv
+auto__label_file: 
+  - split_info/label-RND-0.csv
+  - split_info/label-RND-1.csv
+  - split_info/label-RND-2.csv
+  - split_info/label-RND-3.csv
+  - split_info/label-RND-4.csv
+  - split_info/label-RND-5.csv
+  - split_info/label-RND-6.csv
+  - split_info/label-RND-7.csv
+  - split_info/label-RND-8.csv
+  - split_info/label-RND-9.csv
+clinic_file: Z:\20241225-HuangHaoZhe\Clinical.csv
+survival_file: Z:\20241225-HuangHaoZhe\Survival.csv
+label_mapping:
+  0: CR
+  1: non-CR
+subsets: [train, val, test]
+modals: [pre, post]
+delta_mode: early
+# 'Acc', 'AUC', '95% CI', 'Sensitivity', 'Specificity', 'PPV', 'NPV'
+metric_spec: AUC
+metric_spec_ids: 
+metric_spec_agg: mean
+display_metric: True
+summary_models: [Clinical, DeltaRadiomics, PreHabitat, DeltaHabitat, DLRadiomics, Histology]
+sel_model:
+  Clinical: ExtraTrees
+  DeltaHabitat: SVM
+  DeltaRadiomics: SVM
+  PreHabitat: RandomForest
+  Histology: ExtraTrees
+  DLRadiomics: SVM
+  
+sel_f:
+  Clinical: Clinical
+  DeltaHabitat: DeltaHabitat
+  DeltaRadiomics: RadiomicsDelta
+  PreHabitat: HabitatPre
+  DLRadiomics: MIL
+  Histology: Pathomics
+use_youden: True
+DISABLE_VIDEO: True
